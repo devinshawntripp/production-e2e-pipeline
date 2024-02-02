@@ -21,6 +21,20 @@ pipeline{
 
             }
         }
+        stage("Build Application"){
+            steps{
+                echo "========Build Application========"
+                sh "mvn clean package"
+
+            }
+        }
+        stage("Test Application"){
+            steps{
+                echo "========Test Application========"
+                sh "mvn test"
+
+            }
+        }
     }
 
 }
