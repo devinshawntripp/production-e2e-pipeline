@@ -2,10 +2,25 @@ pipeline{
     agent{
         label "jenkins-agent"
     }
+    tools {
+        jdk 'Java17'
+        maven 'Maven3'
+    }
     stages{
-        stage("A"){
+        stage("Cleanup Workspace"){
             steps{
-                echo "========executing A========"
+                echo "========executing Cleanup Workspace========"
+                cleanWs()
+
+            }
+        }
+    }
+    stages{
+        stage("Checkout from SCM"){
+            steps{
+                echo "========Checkout from SCM========"
+                git branch: 'main', credentialId: 'github', url: 'https://github.com/devinshawntripp/production-e2e-pipeline'
+
             }
         }
     }
