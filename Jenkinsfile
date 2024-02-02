@@ -17,7 +17,7 @@ pipeline{
         stage("Checkout from SCM"){
             steps{
                 echo "========Checkout from SCM========"
-                git branch: 'main', credentialId: 'github', url: 'https://github.com/devinshawntripp/production-e2e-pipeline'
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/devinshawntripp/production-e2e-pipeline'
 
             }
         }
