@@ -7,7 +7,7 @@ pipeline{
         maven 'Maven3'
     }
     environment {
-        APP_NAME = "PRODUCTION-E2E-PIPELINE"
+        APP_NAME = "production-e2e-pipeline"
         RELEASE = "1.0.0"
         DOCKER_USER = "devintripp"
         DOCKER_PASS = "dockerhub"
@@ -61,4 +61,28 @@ pipeline{
                 script {
                     waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
                 }
-  
+                
+
+            }
+        }
+        stage("Build and Push Docker Image"){
+            steps{
+                echo "========Build and Push Docker Image========"
+                script {
+                    docker.withRegistry('', DOCKER_PASS){
+                        docker_image = docker.build "${IMAGE_NAME}"
+                    }
+
+                    docker.withRegistry('', DOCKER_PASS){
+                        docker_image.push("${IMAGE_TAG}")
+                        docker_image.push('latest')
+                    }
+
+                }
+                
+
+            }
+        }
+    }
+
+}
