@@ -35,6 +35,16 @@ pipeline{
 
             }
         }
+        stage("Sonarqube anaylisis"){
+            steps{
+                echo "========Sonarqube anaylisis========"
+                withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
+                    sh "mvn sonar:sonar"
+                }
+                
+
+            }
+        }
     }
 
 }
