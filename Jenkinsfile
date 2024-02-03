@@ -38,8 +38,10 @@ pipeline{
         stage("Sonarqube anaylisis"){
             steps{
                 echo "========Sonarqube anaylisis========"
-                withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
-                    sh "mvn sonar:sonar"
+                script {
+                    withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
+                        sh "mvn sonar:sonar"
+                    }
                 }
                 
 
